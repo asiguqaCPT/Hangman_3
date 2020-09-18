@@ -11,17 +11,17 @@ class MyTestCase(unittest.TestCase):
         for i in range(0,1000):
             filled_word = hangman.random_fill_word("abcde")
             self.assertEqual(5, len(filled_word.split('_')))
-
+        
         # test is_missing_char
         self.assertTrue(hangman.is_missing_char('abc', 'a__', 'b'))
         self.assertFalse(hangman.is_missing_char('abc', 'a__', 'a'))
         self.assertFalse(hangman.is_missing_char('abc', 'a__', 'f'))
-
+        
         # test fill_in_char
         self.assertEqual('ab_', hangman.fill_in_char('abc', 'a__', 'b'))
         self.assertEqual('a__', hangman.fill_in_char('abc', 'a__', 'a'))
         self.assertEqual('a__', hangman.fill_in_char('abc', 'a__', 'f'))
-
+        
     def test_step2(self):
         with captured_io(StringIO('a\nb\n')) as (out, err):
             hangman.run_game_loop('abc',"__c")

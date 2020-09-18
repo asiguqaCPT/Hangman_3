@@ -25,18 +25,38 @@ def select_random_word(words):
 
 # TODO: Step 1 - update to randomly fill in one character of the word only
 def random_fill_word(word):
-    TODO
-
+    #TODO
+    r_letter = random.randint(0, len(word)-1)
+    word_fill = ''
+    counter = 0
+    while counter < len(word):
+        if counter == r_letter:
+            word_fill += word[counter]
+        else:
+            word_fill += '_'
+        counter += 1
+    return word_fill
 
 # TODO: Step 1 - update to check if character is one of the missing characters
 def is_missing_char(original_word, answer_word, char):
+    if char in original_word and char not in answer_word:
+        return True
     return False
-
 
 # TODO: Step 1 - fill in missing char in word and return new more complete word
 def fill_in_char(original_word, answer_word, char):
-    TODO
-
+    #TODO
+    try:
+        pos = original_word.index(char)
+    except:
+        return answer_word
+    new_word = ""
+    for i in range(0, len(answer_word)):
+        if i != pos:
+            new_word += answer_word[i]
+        else:
+            new_word += char
+    return new_word
 
 def do_correct_answer(original_word, answer, guess):
     answer = fill_in_char(original_word, answer, guess)
@@ -58,13 +78,13 @@ def draw_figure(number_guesses):
 # TODO: Step 3 - update loop to exit game if user types `exit` or `quit`
 # TODO: Step 4 - keep track of number of remaining guesses
 def run_game_loop(word, answer):
-    print("Guess the word: "+answer)
-    guess = get_user_input()
-    if is_missing_char(word, answer, guess):
-        answer = do_correct_answer(word, answer, guess)
-    else:
-        do_wrong_answer(answer, 0)
-
+    while word != answer:
+        print("Guess the word: "+answer)
+        guess = get_user_input()
+        if is_missing_char(word, answer, guess):
+            answer = do_correct_answer(word, answer, guess)
+        else:
+            do_wrong_answer(answer, 0)
 
 # TODO: Step 6 - update to get words_file to use from commandline argument
 if __name__ == "__main__":

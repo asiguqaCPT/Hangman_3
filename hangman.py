@@ -1,5 +1,5 @@
 import random
-
+guesses = 5
 
 def read_file(file_name):
     file = open(file_name,'r')
@@ -41,6 +41,11 @@ def random_fill_word(word):
 def is_missing_char(original_word, answer_word, char):
     if char in original_word and char not in answer_word:
         return True
+    elif char in original_word and char in answer_word:
+        if original_word.index(char) == answer_word.index(char):
+            return False
+        else:
+            return True
     return False
 
 # TODO: Step 1 - fill in missing char in word and return new more complete word
@@ -78,13 +83,21 @@ def draw_figure(number_guesses):
 # TODO: Step 3 - update loop to exit game if user types `exit` or `quit`
 # TODO: Step 4 - keep track of number of remaining guesses
 def run_game_loop(word, answer):
+    global guesses
+    print("Guess the word: "+answer)
     while word != answer:
-        print("Guess the word: "+answer)
         guess = get_user_input()
-        if is_missing_char(word, answer, guess):
+        guesses -= 1
+        if guess in ['exit', 'enter']:
+            print('Bye!')
+            break
+        elif is_missing_char(word, answer, guess):
             answer = do_correct_answer(word, answer, guess)
         else:
-            do_wrong_answer(answer, 0)
+            do_wrong_answer(answer, guesses)
+        if guesses == 0:
+            print('Sorry, you are out of guesses. The word was: ' + word)
+            break
 
 # TODO: Step 6 - update to get words_file to use from commandline argument
 if __name__ == "__main__":

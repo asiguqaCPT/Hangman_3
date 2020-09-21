@@ -77,7 +77,16 @@ def do_wrong_answer(answer, number_guesses):
 
 # TODO: Step 5: draw hangman stick figure, based on number of guesses remaining
 def draw_figure(number_guesses):
-    print('TODO')
+    if number_guesses == 4:
+        print('/----\n|\n|\n|\n|\n_______')      
+    if number_guesses == 3:
+        print('/----\n|   0\n|\n|\n|\n_______')
+    if number_guesses == 2:
+        print('/----\n|   0\n|  /|\\\n|\n|\n_______')
+    if number_guesses == 1:
+        print('/----\n|   0\n|  /|\\\n|   |\n|\n_______')
+    if number_guesses == 0:
+        print('/----\n|   0\n|  /|\\\n|   |\n|  / \\\n_______')
 
 # TODO: Step 2 - update to loop over getting input and checking until whole word guessed
 # TODO: Step 3 - update loop to exit game if user types `exit` or `quit`
@@ -87,13 +96,13 @@ def run_game_loop(word, answer):
     print("Guess the word: "+answer)
     while word != answer:
         guess = get_user_input()
-        guesses -= 1
         if guess in ['exit', 'enter']:
             print('Bye!')
             break
         elif is_missing_char(word, answer, guess):
             answer = do_correct_answer(word, answer, guess)
         else:
+            guesses -= 1
             do_wrong_answer(answer, guesses)
         if guesses == 0:
             print('Sorry, you are out of guesses. The word was: ' + word)

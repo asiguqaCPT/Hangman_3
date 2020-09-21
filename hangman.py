@@ -1,5 +1,5 @@
 import random
-guesses = 5
+guesses = 5 #keeps track of the number of guesses
 
 def read_file(file_name):
     file = open(file_name,'r')
